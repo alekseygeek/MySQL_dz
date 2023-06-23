@@ -3,7 +3,7 @@ CREATE TABLE phones (
     idphones int NOT NULL AUTO_INCREMENT,
     models_phones VARCHAR(22) NOT NULL,
     manufacturers_phones VARCHAR(23) NOT NULL,
-    prices_phones decimal(10,0) DEFAULT NULL,
+    prices_phones decimal(10, 0) DEFAULT NULL,
     quantity_phones int NOT NULL,
     PRIMARY KEY (idphones)
 );
