@@ -1,12 +1,12 @@
 -- Cоздаём таблицу
-CREATE TABLE `phones` (
-    `idphones` int NOT NULL AUTO_INCREMENT,
-    `models_phones` varchar(22) NOT NULL,
-    `manufacturers_phones` varchar(45) NOT NULL,
-    `prices_phones` int NOT NULL,
-    `quantity_phones` int NOT NULL,
-    PRIMARY KEY (`idphones`)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE phones (
+    idphones int NOT NULL AUTO_INCREMENT,
+    models_phones VARCHAR(22) NOT NULL,
+    manufacturers_phones VARCHAR(23) NOT NULL,
+    prices_phones decimal(10,0) DEFAULT NULL,
+    quantity_phones int NOT NULL,
+    PRIMARY KEY (idphones)
+);
 
 -- Заполнение базу данных
 INSERT INTO
