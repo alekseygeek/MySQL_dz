@@ -1,7 +1,7 @@
 /*1. Используя операторы языка SQL, создайте табличку “sales”. Заполните ее данными.
-  2. Для данных таблицы “sales” укажите тип заказа в зависимости от кол-ва : меньше 100 - Маленький заказ; от 100 до 300 - Средний заказ; больше 300 - Большой заказ.
-  3. Создайте таблицу “orders”, заполните ее значениями. Выберите все заказы. В зависимости от поля order_status выведите столбец full_order_status: OPEN – «Order is in open state» ; CLOSED - «Order is closed»; CANCELLED - «Order is cancelled»
-  4. Чем NULL отличается от 0?*/
+ 2. Для данных таблицы “sales” укажите тип заказа в зависимости от кол-ва : меньше 100 - Маленький заказ; от 100 до 300 - Средний заказ; больше 300 - Большой заказ.
+ 3. Создайте таблицу “orders”, заполните ее значениями. Выберите все заказы. В зависимости от поля order_status выведите столбец full_order_status: OPEN – «Order is in open state» ; CLOSED - «Order is closed»; CANCELLED - «Order is cancelled»
+ 4. Чем NULL отличается от 0?*/
 DROP DATABASE IF EXISTS dz_2;
 
 CREATE DATABASE dz_2;
@@ -31,6 +31,7 @@ SELECT
         WHEN count_product BETWEEN 100
         AND 300 THEN "Средний заказ"
         WHEN count_product > 300 THEN "Большой заказ"
+        ELSE "не определено"
     end as "order"
 FROM
     dz_2.sales;
