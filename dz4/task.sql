@@ -41,3 +41,29 @@ WHERE
         WHERE
             from_user_id > 0
     );
+
+-- 4. (по желанию)* Пусть задан некоторый пользователь. Из всех друзей этого пользователя найдите человека, который больше всех написал ему сообщений.
+SELECT
+    m.from_user_id,
+    CONCAT(firstname, ' ', lastname) AS "от кого написали сообщение",
+    COUNT(*) AS cnt
+FROM
+    messages m
+    JOIN users u ON u.id = m.from_user_id
+    JOIN friend_requests fr ON (
+        fr.initiator_user_id = m.to_user_id
+        AND fr.target_user_id = m.from_user_id
+    )
+    OR (
+        fr.initiator_user_id = m.from_user_id
+        AND fr.target_user_id = m.to_user_id
+    )
+WHERE
+    fr.status = "approved"
+    AND m.to_user_id = 1
+GROUP BY
+    m.from_user_id
+ORDER BY
+    cnt DESC
+limit
+    1;
