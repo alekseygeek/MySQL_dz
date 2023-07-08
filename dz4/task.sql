@@ -3,67 +3,29 @@
  2. Определить кто больше поставил лайков (всего): мужчины или женщины.
  3. Вывести всех пользователей, которые не отправляли сообщения.
  4. (по желанию)* Пусть задан некоторый пользователь. Из всех друзей этого пользователя найдите человека, который больше всех написал ему сообщений.*/
+use lesson_4;
+
 -- 1. Подсчитать общее количество лайков, которые получили пользователи младше 12 лет.
 SELECT
-    user_id AS 'id юзера',
-    (
-        SELECT
-            CONCAT (firstname, ' ', lastname)
-        FROM
-            users
-        WHERE
-            id = likes.user_id
-    ) AS 'имя юзера',
-    COUNT(*) AS 'общее количество лайков, которые получили пользователи младше 12 лет'
+    COUNT(*)
 FROM
-    likes
+    likes l
+    JOIN media m ON l.media_id = m.id
+    JOIN profiles p ON p.user_id = m.user_id
 WHERE
-    (
-        SELECT
-            TIMESTAMPDIFF(YEAR, birthday, NOW())
-        FROM
-            profiles
-        WHERE
-            user_id = likes.user_id
-            AND (TIMESTAMPDIFF(YEAR, birthday, NOW()) < 12)
-    ) IS NOT NULL
-GROUP BY
-    user_id
-ORDER BY
-    user_id;
+    TIMESTAMPDIFF(YEAR, p.birthday, NOW()) < 12;
 
 -- 2. Определить кто больше поставил лайков (всего): мужчины или женщины. 
 SELECT
-    DISTINCT (
-        SELECT
-            SUM(user_id)
-        FROM
-            likes
-        WHERE
-            id IN (
-                SELECT
-                    user_id
-                FROM
-                    profiles
-                WHERE
-                    gender = 'f'
-            )
-    ) AS 'лайки женщин',
-    (
-        SELECT
-            SUM(user_id)
-        FROM
-            likes
-        WHERE
-            id IN (
-                SELECT
-                    user_id
-                FROM
-                    profiles
-                WHERE
-                    gender = 'm'
-            )
-    ) AS 'лайки мужчин';
+    COUNT(l.id) AS cnt,
+    p.gender
+FROM
+    likes l
+    JOIN profiles p ON l.user_id = p.user_id
+GROUP BY
+    p.gender
+ORDER BY
+    cnt DESC;
 
 -- 3. Вывести всех пользователей, которые не отправляли сообщения.
 SELECT
